@@ -1,8 +1,11 @@
-type Category = 'Home' | 'Services' | 'About Us' | 'Contact Us';
+export type Category = {
+  text: string;
+  href: string;
+};
 
-export const CATEGORIES: Category[] = [
-  'Home',
-  'Services',
-  'About Us',
-  'Contact Us',
+export const NAVIGATION_LISTS: Category[] = [
+  { text: 'Home', href: '#' },
+  { text: 'Services', href: '#services' },
+  { text: 'About Us', href: '#about' },
+  { text: 'Contact Us', href: '#contact' },
 ];

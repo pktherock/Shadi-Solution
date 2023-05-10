@@ -1,12 +1,14 @@
-import Image from 'next/image';
 import { Inter } from 'next/font/google';
+import Hero from './hero/page';
+import Product from './products/page';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
-    <main className="inset-0 flex justify-center items-center">
-      Website content coming soon...
+    <main className="pt-1">
+      <Hero />
+      <Product />
     </main>
   );
 }
