@@ -6,7 +6,7 @@ interface FooterProps {}
 
 const Footer: FC<FooterProps> = () => {
   return (
-    <footer className="bg-white rounded-lg shadow dark:bg-gray-900 mt-2">
+    <footer className="bg-white rounded-lg shadow dark:bg-gray-900 border-t-2">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link href="#home" className="flex items-center">

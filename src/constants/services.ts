@@ -13,7 +13,7 @@ export const ALL_SERVICES: Service[] = [
     imgUrl: ['/assets/img/products/3.jpg', '/assets/img/products/4.jpg'],
   },
   {
-    name: 'Cooking Solution (One to One or full service',
+    name: 'Cooking Solution',
     imgUrl: ['/assets/img/products/5.jpg', '/assets/img/products/6.jpg'],
   },
   {
