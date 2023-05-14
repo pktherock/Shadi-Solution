@@ -74,6 +74,8 @@ const Contact: FC<ContactProps> = () => {
       setSuccess(true);
       setError(false);
       setIsLoading(true);
+
+      //  todo write function for sending mail to us and to user?
     } else {
       setError(true);
       setSuccess(false);

@@ -28,7 +28,7 @@ const Product: FC<ProductProps> = () => {
                     alt={`${service.name} img`}
                     width={800}
                     height={800}
-                    className="bg-cover"
+                    className="bg-cover bg-blend-darken"
                   />
                 ))}
               </Carousel>
