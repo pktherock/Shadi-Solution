@@ -75,12 +75,21 @@ const Contact: FC<ContactProps> = () => {
       setError(false);
       setIsLoading(true);
 
+      await sendMail();
       //  todo write function for sending mail to us and to user?
     } else {
       setError(true);
       setSuccess(false);
       console.log(contactForm);
     }
+  };
+
+  const sendMail = async () => {
+    const response = await fetch('/api/sendmail', {
+      method: 'POST',
+      body: JSON.stringify({ hello: 'world' }),
+    });
+    console.log(await response.json());
   };
 
   return (
