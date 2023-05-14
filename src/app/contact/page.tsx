@@ -24,6 +24,9 @@ const Contact: FC<ContactProps> = () => {
     endDate: null,
   });
 
+  const [error, setError] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+
   const handleDateChange = (newDate: any) => {
     setDate(newDate);
     setContactForm({ ...contactForm, ['date']: newDate });
@@ -36,10 +39,46 @@ const Contact: FC<ContactProps> = () => {
     } as ContactForm);
   };
 
+  const isFormValid = (): boolean => {
+    const phoneRegX = /^(\+91|\+91\-|0)?[789]\d{9}$/;
+
+    const { name, mobileNo } = contactForm;
+    console.log(phoneRegX.test(mobileNo));
+    if (!name || !phoneRegX.test(mobileNo)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const handleOnInitiateAnotherRequest = () => {
+    setSuccess(false);
+    setIsLoading(false);
+    setDate({ startDate: null, endDate: null });
+    setContactForm({
+      name: '',
+      mobileNo: '',
+      email: '',
+      date: {
+        startDate: '',
+        endDate: '',
+      },
+      eventType: '',
+      message: '',
+    });
+  };
+
   const handleSubmitRequest = async (e: any) => {
     e.preventDefault();
-    setIsLoading(true);
-    console.log(contactForm);
+    if (isFormValid()) {
+      setSuccess(true);
+      setError(false);
+      setIsLoading(true);
+    } else {
+      setError(true);
+      setSuccess(false);
+      console.log(contactForm);
+    }
   };
 
   return (
@@ -124,6 +163,7 @@ const Contact: FC<ContactProps> = () => {
               onChange={handleDateChange}
               inputClassName="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
               displayFormat="DD-MM-YYYY"
+              separator=" to "
             />
           </div>
 
@@ -162,14 +202,83 @@ const Contact: FC<ContactProps> = () => {
               placeholder="please write bit more details about you events"
             ></textarea>
           </div>
-          <button
-            type="submit"
-            className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:bg-slate-200"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Sending your request...' : 'Request a call back'}
-          </button>
+
+          {error && (
+            <div
+              className="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+              role="alert"
+            >
+              <svg
+                aria-hidden="true"
+                className="flex-shrink-0 inline w-5 h-5 mr-3"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+              <span className="sr-only">Info</span>
+              <div>
+                <span className="font-medium"> Error alert!</span> Please fill
+                correct details
+              </div>
+            </div>
+          )}
+          {success && (
+            <div
+              className="flex p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+              role="alert"
+            >
+              <svg
+                aria-hidden="true"
+                className="flex-shrink-0 inline w-5 h-5 mr-3"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+              <span className="sr-only">Info</span>
+              <div>
+                <span className="font-medium">Success!</span>
+                <ul className="mt-1.5 ml-4 list-disc list-inside">
+                  <li>We have received your request successfully</li>
+                  <li>We wil get back to you soon</li>
+                  <li>
+                    Mean while if you want contact on this no :-{' '}
+                    <strong>9155657918</strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {!success && (
+            <button
+              type="submit"
+              className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:bg-slate-200 disabled:text-green-400"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Submitting your request...' : 'Request a call back'}
+            </button>
+          )}
         </form>
+        {success && (
+          <button
+            className="mt-3 py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:bg-slate-200 disabled:text-green-400"
+            onClick={handleOnInitiateAnotherRequest}
+          >
+            Initiate another request
+          </button>
+        )}
       </div>
     </section>
   );
