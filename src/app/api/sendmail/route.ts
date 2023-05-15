@@ -3,7 +3,8 @@ export async function POST(req: Request, res: Response) {
   const body = await req.json();
   console.log(body);
   try {
-    await sendMail();
+    const res = await sendMail();
+    console.log(res);
     return new Response(
       JSON.stringify({ msg: 'mail sended successfully', status: 200 })
     );
@@ -30,5 +31,13 @@ async function sendMail() {
     html: `<h1>Welcome to Shadi solution</h1>`,
   };
 
-  transporter.sendMail(mailOptions);
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      return error;
+    } else {
+      console.log(info);
+      return info;
+    }
+  });
 }

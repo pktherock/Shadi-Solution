@@ -1,5 +1,6 @@
 'use client';
 import { ContactForm } from '@component/constants/contact-form';
+import { sendMail } from '@component/services/email.service';
 import { FC, FormEvent, useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 
@@ -75,21 +76,14 @@ const Contact: FC<ContactProps> = () => {
       setError(false);
       setIsLoading(true);
 
-      await sendMail();
+      const res = await sendMail();
+      console.log(res);
       //  todo write function for sending mail to us and to user?
     } else {
       setError(true);
       setSuccess(false);
       console.log(contactForm);
     }
-  };
-
-  const sendMail = async () => {
-    const response = await fetch('/api/sendmail', {
-      method: 'POST',
-      body: JSON.stringify({ hello: 'world' }),
-    });
-    console.log(await response.json());
   };
 
   return (
