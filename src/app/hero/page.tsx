@@ -13,6 +13,14 @@ const Hero: FC<HeroProps> = () => {
         <h1 className="mb-4 text-2xl font-bold tracking-tight leading-none text-slate-300 md:text-5xl lg:text-6xl">
           Helping you to plan all your events without any hassle!
         </h1>
+
+        <p className="mb-8 text-lg font-bold text-gray-400 lg:text-xl sm:px-16 lg:px-48">
+          ( Powered by{' '}
+          <span className="bg-yellow-300 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-1 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
+            Gupta Chats & Sweets
+          </span>
+          )
+        </p>
         <p className="mb-8 text-lg font-bold text-gray-400 lg:text-xl sm:px-16 lg:px-48">
           We are providing the best solution for all kind of events like shadi,
           Birthday, etc.

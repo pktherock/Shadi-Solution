@@ -6,6 +6,7 @@ export interface ContactForm {
     startDate: string;
     endDate: string;
   };
+  subject?: string;
   eventType: string;
   message?: string;
 }

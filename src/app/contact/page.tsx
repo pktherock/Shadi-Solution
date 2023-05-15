@@ -1,6 +1,9 @@
 'use client';
 import { ContactForm } from '@component/constants/contact-form';
-import { sendMail } from '@component/services/email.service';
+import {
+  sendMailToCustomer,
+  sendMailToUs,
+} from '@component/services/email.service';
 import { FC, FormEvent, useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 
@@ -44,7 +47,6 @@ const Contact: FC<ContactProps> = () => {
     const phoneRegX = /^(\+91|\+91\-|0)?[789]\d{9}$/;
 
     const { name, mobileNo } = contactForm;
-    console.log(phoneRegX.test(mobileNo));
     if (!name || !phoneRegX.test(mobileNo)) {
       return false;
     } else {
@@ -72,17 +74,17 @@ const Contact: FC<ContactProps> = () => {
   const handleSubmitRequest = async (e: any) => {
     e.preventDefault();
     if (isFormValid()) {
+      //  todo write function for sending mail to us and to user?
+      setIsLoading(true);
+      if (contactForm.email) {
+        const res1 = await sendMailToCustomer(contactForm);
+      }
+      const res2 = await sendMailToUs(contactForm);
       setSuccess(true);
       setError(false);
-      setIsLoading(true);
-
-      const res = await sendMail();
-      console.log(res);
-      //  todo write function for sending mail to us and to user?
     } else {
       setError(true);
       setSuccess(false);
-      console.log(contactForm);
     }
   };
 
@@ -151,7 +153,6 @@ const Contact: FC<ContactProps> = () => {
               onChange={handleInputChange}
               className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
               placeholder="Please write your email id here"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             />
           </div>
 
@@ -272,7 +273,7 @@ const Contact: FC<ContactProps> = () => {
               className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:bg-slate-200 disabled:text-green-400"
               disabled={isLoading}
             >
-              {isLoading ? 'Submitting your request...' : 'Request a call back'}
+              {isLoading ? 'Submitting your request...' : 'Request a Callback'}
             </button>
           )}
         </form>

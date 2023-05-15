@@ -1,19 +1,31 @@
+import { ContactForm } from '@component/constants/contact-form';
+import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-export async function POST(req: Request, res: Response) {
-  const body = await req.json();
-  console.log(body);
+
+export async function POST(req: Request) {
+  const body: ContactForm = await req.json();
   try {
-    const res = await sendMail();
-    console.log(res);
-    return new Response(
-      JSON.stringify({ msg: 'mail sended successfully', status: 200 })
-    );
+    const res = await sendMail(body);
+    if (res.success) {
+      return NextResponse.json({
+        msg: 'mail sended successfully',
+        status: 200,
+      });
+    } else {
+      return NextResponse.json({
+        status: 404,
+        msg: 'Problem with send mail function',
+      });
+    }
   } catch (error) {
-    console.log(error);
+    return NextResponse.json({
+      status: 404,
+      msg: 'send mail api is not working',
+    });
   }
 }
 
-async function sendMail() {
+async function sendMail(mailData: any) {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -22,22 +34,21 @@ async function sendMail() {
       user: 'shadisolution2023@gmail.com',
       pass: 'bbasbqbtcwwsevwy',
     },
+    tls: { rejectUnauthorized: false },
   });
 
+  const { data, subject, emailBody } = mailData;
   const mailOptions = {
     from: 'Shadi Solution <shadisolution2023@gmail.com>',
-    to: 'pktherock00@gmail.com',
-    subject: `Nodemailer working fine!`,
-    html: `<h1>Welcome to Shadi solution</h1>`,
+    to: data.email,
+    subject: subject,
+    html: emailBody,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      return error;
-    } else {
-      console.log(info);
-      return info;
-    }
-  });
+  try {
+    const response = await transporter.sendMail(mailOptions);
+    return { success: true, data: response };
+  } catch (error) {
+    return { success: false, error };
+  }
 }
