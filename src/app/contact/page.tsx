@@ -1,6 +1,10 @@
 'use client';
 import { ContactForm } from '@component/constants/contact-form';
 import {
+  fireWorksOnSchoolPride,
+  fireworksOnRequestCallSuccess,
+} from '@component/services/confetti.service';
+import {
   sendMailToCustomer,
   sendMailToUs,
 } from '@component/services/email.service';
@@ -74,14 +78,15 @@ const Contact: FC<ContactProps> = () => {
   const handleSubmitRequest = async (e: any) => {
     e.preventDefault();
     if (isFormValid()) {
-      //  todo write function for sending mail to us and to user?
+      setError(false);
       setIsLoading(true);
       if (contactForm.email) {
         const res1 = await sendMailToCustomer(contactForm);
       }
       const res2 = await sendMailToUs(contactForm);
+      fireworksOnRequestCallSuccess();
+      fireWorksOnSchoolPride();
       setSuccess(true);
-      setError(false);
     } else {
       setError(true);
       setSuccess(false);
