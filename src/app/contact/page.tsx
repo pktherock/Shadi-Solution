@@ -85,7 +85,7 @@ const Contact: FC<ContactProps> = () => {
       }
       const res2 = await sendMailToUs(contactForm);
       fireworksOnRequestCallSuccess();
-      fireWorksOnSchoolPride();
+      // fireWorksOnSchoolPride();
       setSuccess(true);
     } else {
       setError(true);
