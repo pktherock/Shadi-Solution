@@ -53,7 +53,7 @@ const getEmailBodyForCustomer = (formData: ContactForm) => {
     <p>If you have any queries please feel free to reach out to us for more
       info...</p>
     <p>Contact Person Name : <strong>Vicky Kumar</strong></p>
-    <p>Contact No : <strong>9155657918</strong></p>
+    <p>Contact No : <strong>8709856307</strong></p>
     <br />
 
     <p>
