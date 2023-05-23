@@ -17,7 +17,7 @@ const Hero: FC<HeroProps> = () => {
         <p className="mb-8 text-lg font-bold text-gray-400 lg:text-xl sm:px-16 lg:px-48">
           ( Powered by{' '}
           <span className="bg-yellow-300 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-1 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
-            Gupta Chats & Sweets
+            Gupta Chaat & Sweets
           </span>
           )
         </p>
