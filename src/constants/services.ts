@@ -11,6 +11,7 @@ export const ALL_SERVICES: Service[] = [
       '/assets/img/products/sound2.jpg',
       '/assets/img/products/sound3.jpg',
       '/assets/img/products/sound4.jpeg',
+      '/assets/img/products/sound5.jpeg',
     ],
   },
   {
@@ -38,8 +39,9 @@ export const ALL_SERVICES: Service[] = [
       '/assets/img/products/dairy1.jpg',
       '/assets/img/products/dairy2.jpg',
       '/assets/img/products/dairy3.jpg',
-      '/assets/img/products/dairy4.jpg',
       '/assets/img/products/dairy5.jpg',
+      '/assets/img/products/dairy6.jpg',
+      '/assets/img/products/dairy7.jpg',
     ],
   },
   {
