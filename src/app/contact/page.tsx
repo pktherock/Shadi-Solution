@@ -265,7 +265,7 @@ const Contact: FC<ContactProps> = () => {
                   <li>We wil get back to you soon</li>
                   <li>
                     Mean while if you want contact on this no :-{' '}
-                    <strong>8709856307</strong>
+                    <strong>9155657918</strong>
                   </li>
                 </ul>
               </div>
